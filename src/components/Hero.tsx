@@ -119,9 +119,9 @@ export default function Hero() {
               : 'opacity-0 translate-y-5'
           }`}
           style={{
-            height: isMobile ? '40vh' : 'clamp(380px, 50vh, 560px)',
-            width: isMobile ? '100%' : 'clamp(380px, 50vh, 560px)',
-            minHeight: isMobile ? '280px' : '380px',
+            height: isMobile ? '40vh' : 'clamp(450px, 55vh, 650px)',
+            width: isMobile ? '100%' : 'clamp(450px, 55vh, 650px)',
+            minHeight: isMobile ? '280px' : '450px',
             maxHeight: isMobile ? '350px' : '560px',
           }}
         >
@@ -268,44 +268,19 @@ export default function Hero() {
           />
         </a>
 
-        <ul className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm text-gray-500 lg:text-gray-300/80">
+        <ul className="flex items-center gap-4 lg:gap-8 text-xs lg:text-base text-gray-500 lg:text-gray-300/80">
           <li className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
-            <span>Premium Service</span>
+            <span className="whitespace-nowrap">Premium Service</span>
           </li>
           <li className="opacity-40">|</li>
           <li className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
-            <span>Expert Team</span>
+            <span className="whitespace-nowrap">Expert Team</span>
           </li>
         </ul>
       </div>
 
-      {!isMobile && imagesLoaded && (
-        <>
-          <motion.div
-            animate={{
-              y: [0, -10, 0],
-              rotateZ: [0, 1.5, -1.5, 0],
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-16 left-6 w-[140px] h-[180px] rounded-2xl overflow-hidden backdrop-blur-md border border-[#D4AF37]/15 shadow-[0_0_20px_rgba(212,175,55,0.15)] hidden lg:block"
-          >
-            <img src="/gallery/PHOTO-2025-10-11-22-06-09.jpg" className="object-cover w-full h-full" alt="Floating work 1" />
-          </motion.div>
-
-          <motion.div
-            animate={{
-              y: [0, 12, 0],
-              rotateZ: [0, -1.5, 1.5, 0],
-            }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute bottom-20 right-6 w-[120px] h-[160px] rounded-2xl overflow-hidden backdrop-blur-md border border-[#D4AF37]/15 shadow-[0_0_20px_rgba(212,175,55,0.15)] hidden lg:block"
-          >
-            <img src="/gallery/PHOTO-2025-10-11-22-06-15.jpg" className="object-cover w-full h-full" alt="Floating work 2" />
-          </motion.div>
-        </>
-      )}
       </div>
     </section>
   );
