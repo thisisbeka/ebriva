@@ -25,20 +25,34 @@ export default function TypewriterText({ words, className = '', cursorClassName 
     }
 
     const ctx = audioContextRef.current;
-    const oscillator = ctx.createOscillator();
-    const gainNode = ctx.createGain();
 
-    oscillator.connect(gainNode);
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+
+    osc1.connect(filter);
+    osc2.connect(filter);
+    filter.connect(gainNode);
     gainNode.connect(ctx.destination);
 
-    oscillator.frequency.value = 800 + Math.random() * 200;
-    oscillator.type = 'sine';
+    const baseFreq = 1800 + Math.random() * 400;
+    osc1.frequency.value = baseFreq;
+    osc2.frequency.value = baseFreq * 2.1;
+    osc1.type = 'triangle';
+    osc2.type = 'sine';
 
-    gainNode.gain.setValueAtTime(0.03, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+    filter.type = 'lowpass';
+    filter.frequency.value = 3000;
+    filter.Q.value = 1;
 
-    oscillator.start(ctx.currentTime);
-    oscillator.stop(ctx.currentTime + 0.05);
+    gainNode.gain.setValueAtTime(0.04, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+
+    osc1.start(ctx.currentTime);
+    osc2.start(ctx.currentTime);
+    osc1.stop(ctx.currentTime + 0.04);
+    osc2.stop(ctx.currentTime + 0.04);
   };
 
   useEffect(() => {
