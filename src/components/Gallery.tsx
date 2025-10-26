@@ -4,23 +4,23 @@ export default function Gallery() {
   const [isVisible, setIsVisible] = useState(false);
 
   const images = [
-    '/gallery/PHOTO-2025-08-15-00-40-37.jpg',
-    '/gallery/PHOTO-2025-08-23-19-54-09.jpg',
-    '/gallery/PHOTO-2025-08-24-01-03-54.jpg',
-    '/gallery/PHOTO-2025-08-24-01-03-58.jpg',
-    '/gallery/PHOTO-2025-08-24-01-07-42.jpg',
-    '/gallery/PHOTO-2025-10-09-00-08-56.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-09.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-11%202.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-11%203.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-11.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-13.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-15%202.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-15%203.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-15.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-16%202.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-16.jpg',
-    '/gallery/PHOTO-2025-10-11-22-06-17.jpg',
+    { src: '/gallery/PHOTO-2025-08-15-00-40-37.jpg', alt: 'EBRIVA gelin saçı İstanbul' },
+    { src: '/gallery/PHOTO-2025-08-23-19-54-09.jpg', alt: 'EBRIVA profesyonel makyaj İstanbul' },
+    { src: '/gallery/PHOTO-2025-08-24-01-03-54.jpg', alt: 'EBRIVA tırnak tasarımı nail art' },
+    { src: '/gallery/PHOTO-2025-08-24-01-03-58.jpg', alt: 'EBRIVA güzellik salonu hizmetleri' },
+    { src: '/gallery/PHOTO-2025-08-24-01-07-42.jpg', alt: 'EBRIVA kuaför saç kesimi' },
+    { src: '/gallery/PHOTO-2025-10-09-00-08-56.jpg', alt: 'EBRIVA premium manikür pedikür' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-09.jpg', alt: 'EBRIVA gelin başı İstanbul' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-11%202.jpg', alt: 'EBRIVA saç boyama renklendirme' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-11%203.jpg', alt: 'EBRIVA ombre sombre röfle' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-11.jpg', alt: 'EBRIVA keratin bakım İstanbul' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-13.jpg', alt: 'EBRIVA topuz tasarımı' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-15%202.jpg', alt: 'EBRIVA türban tasarımı tesettür bölümü' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-15%203.jpg', alt: 'EBRIVA nişan başı söz başı' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-15.jpg', alt: 'EBRIVA microblading kaş alımı' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-16%202.jpg', alt: 'EBRIVA protez tırnak uygulaması' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-16.jpg', alt: 'EBRIVA brezilya fönü düz fön' },
+    { src: '/gallery/PHOTO-2025-10-11-22-06-17.jpg', alt: 'EBRIVA lüks güzellik salonu İstanbul' },
   ];
 
   useEffect(() => {
@@ -94,9 +94,9 @@ export default function Gallery() {
               }}
             >
               <img
-                alt={'Gallery image ' + (idx + 1)}
+                alt={image.alt}
                 className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
-                src={image}
+                src={image.src}
                 loading="lazy"
                 decoding="async"
               />

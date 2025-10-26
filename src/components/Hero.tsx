@@ -17,14 +17,14 @@ export default function Hero() {
   const btnRef = useRef<HTMLAnchorElement | null>(null);
 
   const images = useMemo(() => [
-    { id: '1', src: '/fn1.jpeg', alt: 'Salon Work 1', rotation: -15 },
-    { id: '2', src: '/fn2.jpeg', alt: 'Salon Work 2', rotation: -8 },
-    { id: '3', src: '/fn3.jpeg', alt: 'Salon Work 3', rotation: 5 },
-    { id: '4', src: '/fn4.jpeg', alt: 'Salon Work 4', rotation: 12 },
-    { id: '5', src: '/fn5.jpeg', alt: 'Salon Work 5', rotation: -12 },
-    { id: '6', src: '/fn6.jpg', alt: 'Salon Work 6', rotation: 8 },
-    { id: '7', src: '/fn7.jpeg', alt: 'Salon Work 7', rotation: -5 },
-    { id: '8', src: '/fn8.jpg', alt: 'Salon Work 8', rotation: 10 },
+    { id: '1', src: '/fn1.jpeg', alt: 'EBRIVA gelin saçı İstanbul', rotation: -15 },
+    { id: '2', src: '/fn2.jpeg', alt: 'EBRIVA premium manikür İstanbul', rotation: -8 },
+    { id: '3', src: '/fn3.jpeg', alt: 'EBRIVA kuaför hizmetleri İstanbul', rotation: 5 },
+    { id: '4', src: '/fn4.jpeg', alt: 'EBRIVA saç boyama renklendirme', rotation: 12 },
+    { id: '5', src: '/fn5.jpeg', alt: 'EBRIVA tırnak tasarımı nail art', rotation: -12 },
+    { id: '6', src: '/fn6.jpg', alt: 'EBRIVA güzellik salonu İstanbul', rotation: 8 },
+    { id: '7', src: '/fn7.jpeg', alt: 'EBRIVA gelin makyajı İstanbul', rotation: -5 },
+    { id: '8', src: '/fn8.jpg', alt: 'EBRIVA profesyonel saç kesimi', rotation: 10 },
   ], []);
 
   useEffect(() => {
@@ -183,7 +183,7 @@ export default function Hero() {
 
             <div className="relative z-10">
               <img
-                alt="EBRIVA Hair Design Logo"
+                alt="EBRIVA Güzellik Salonu Logo - Premium kuaför ve güzellik hizmetleri İstanbul"
                 className={`w-32 h-32 md:w-56 md:h-56 ${
                   prefersReducedMotion ? '' : 'breathing-animation'
                 }`}
