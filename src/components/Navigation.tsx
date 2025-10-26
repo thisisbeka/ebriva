@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { AuroraText } from './ui/AuroraText';
 
 interface NavigationProps {
@@ -18,6 +18,18 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
     { name: 'Hakkımızda', href: '#about' },
     { name: 'İletişim', href: '#contact' },
   ];
+
+  const beamKey = useMemo(() => (mobileMenuOpen ? `beam-${Date.now()}` : 'beam-off'), [mobileMenuOpen]);
+
+  const variants = {
+    open: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } },
+    closed: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+  };
+
+  const item = {
+    open: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 22 } },
+    closed: { opacity: 0, y: 10, transition: { duration: 0.2 } },
+  };
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -38,6 +50,8 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
       setMobileMenuOpen(false);
     }
   };
+
+  const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   return (
     <>
@@ -105,63 +119,61 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
             </div>
 
             <button
-              className="md:hidden text-[#D4AF37] hover:text-[#F5D47A] transition-all duration-300"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={toggleMenu}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              className="md:hidden relative w-8 h-6 flex flex-col justify-between z-[60]"
             >
-              <div className="relative w-6 h-6">
-                <Menu
-                  size={24}
-                  className={`absolute inset-0 transition-all duration-300 ${
-                    mobileMenuOpen ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'
-                  }`}
-                  strokeWidth={1.5}
-                />
-                <X
-                  size={24}
-                  className={`absolute inset-0 transition-all duration-300 ${
-                    mobileMenuOpen ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'
-                  }`}
-                  strokeWidth={1.5}
-                />
-              </div>
+              <span className={`h-[2px] w-full bg-[#D4AF37] rounded transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-[10px]' : ''}`} />
+              <span className={`h-[2px] w-full bg-[#D4AF37] rounded transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+              <span className={`h-[2px] w-full bg-[#D4AF37] rounded transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-[10px]' : ''}`} />
             </button>
           </div>
         </nav>
+      </header>
 
-        {mobileMenuOpen && (
-          <div
-            className="mt-3 mx-4 rounded-2xl md:hidden overflow-hidden"
-            style={{
-              background: 'rgba(10, 10, 10, 0.98)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(212, 175, 55, 0.3)',
-              boxShadow: '0 8px 32px rgba(212, 175, 55, 0.2)',
-            }}
-          >
-            {navItems.map((item, index) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className="mobile-menu-item block text-center py-4 font-medium text-base cursor-pointer hover:bg-[#D4AF37]/10 active:scale-[0.98] transition-all duration-300 font-sans border-b border-[#D4AF37]/10 last:border-b-0"
-                style={{
-                  color: '#D4AF37',
-                  animationDelay: `${index * 0.05}s`,
-                }}
-              >
-                {item.name}
-              </a>
-            ))}
-
-            <div className="h-1 w-16 mx-auto my-2 rounded-full bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50" />
+      <motion.div
+        initial={false}
+        animate={mobileMenuOpen ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        className={`fixed inset-0 z-40 md:hidden ${mobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}
+                    bg-black/50 backdrop-blur-2xl border-t border-[#D4AF37]/15 overflow-hidden`}
+        role="dialog"
+        aria-modal="true"
+      >
+        {mobileMenuOpen && !prefersReducedMotion && (
+          <div key={beamKey} className="pointer-events-none absolute inset-0">
+            <div className="beam-glow animate-beam-diagonal absolute -inset-x-1/2 -inset-y-1/2" />
+            <div className="beam-core animate-beam absolute top-1/3 left-0 right-0 h-24 -rotate-[0.5deg]" />
           </div>
         )}
-      </header>
+
+        <motion.ul
+          variants={variants}
+          animate={mobileMenuOpen ? 'open' : 'closed'}
+          className="flex flex-col justify-center items-center h-full space-y-6"
+        >
+          {navItems.map((link) => (
+            <motion.li
+              key={link.name}
+              variants={item}
+              role="menuitem"
+            >
+              <a
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.href);
+                }}
+                className="text-transparent bg-gradient-to-r from-[#F6E27A] to-[#D4AF37] bg-clip-text
+                           text-2xl font-semibold uppercase tracking-wider font-heading
+                           hover:brightness-125 transition-all duration-200 cursor-pointer"
+              >
+                {link.name}
+              </a>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.div>
     </>
   );
 }

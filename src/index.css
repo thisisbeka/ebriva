@@ -412,3 +412,81 @@ html {
 .hover\:text-primary:hover {
   color: var(--primary-color);
 }
+
+@keyframes beam-sweep {
+  0% {
+    transform: translateX(-120%) rotate(0.5deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(0%) rotate(0.5deg);
+    opacity: 0.25;
+  }
+  90% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateX(120%) rotate(0.5deg);
+    opacity: 0;
+  }
+}
+
+@keyframes beam-diagonal {
+  0% {
+    transform: translate(-120%, -40%) rotate(22deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(0%, 0%) rotate(22deg);
+    opacity: 0.22;
+  }
+  100% {
+    transform: translate(120%, 40%) rotate(22deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-beam,
+  .animate-beam-diagonal {
+    animation: none !important;
+  }
+}
+
+.beam-core {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 245, 200, 0.55) 35%,
+    rgba(255, 215, 120, 0.75) 50%,
+    rgba(255, 245, 200, 0.55) 65%,
+    transparent 100%
+  );
+  filter: blur(6px);
+  mix-blend-mode: screen;
+}
+
+.beam-glow {
+  background: radial-gradient(
+    180px 60px at 50% 50%,
+    rgba(245, 212, 122, 0.25),
+    rgba(245, 212, 122, 0.12) 60%,
+    transparent 100%
+  );
+  filter: blur(18px);
+  mix-blend-mode: screen;
+}
+
+.animate-beam {
+  animation: beam-sweep 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1;
+}
+
+.animate-beam-diagonal {
+  animation: beam-diagonal 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1;
+}
