@@ -1,0 +1,256 @@
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { AuroraText } from './ui/AuroraText';
+import TypewriterText from './ui/TypewriterText';
+
+export default function Hero() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [rotatingCards, setRotatingCards] = useState<number[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  const images = useMemo(() => [
+    { id: '1', src: '/fn1.jpeg', alt: 'Salon Work 1', rotation: -15 },
+    { id: '2', src: '/fn2.jpeg', alt: 'Salon Work 2', rotation: -8 },
+    { id: '3', src: '/fn3.jpeg', alt: 'Salon Work 3', rotation: 5 },
+    { id: '4', src: '/fn4.jpeg', alt: 'Salon Work 4', rotation: 12 },
+    { id: '5', src: '/fn5.jpeg', alt: 'Salon Work 5', rotation: -12 },
+    { id: '6', src: '/fn6.jpg', alt: 'Salon Work 6', rotation: 8 },
+    { id: '7', src: '/fn7.jpeg', alt: 'Salon Work 7', rotation: -5 },
+    { id: '8', src: '/fn8.jpg', alt: 'Salon Work 8', rotation: 10 },
+  ], []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    setTimeout(() => setIsVisible(true), 100);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const preloadImages = images.map(img => {
+      const image = new Image();
+      image.src = img.src;
+      return image;
+    });
+
+    Promise.all(
+      preloadImages.map(img =>
+        new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        })
+      )
+    ).then(() => setImagesLoaded(true));
+  }, [images]);
+
+  useEffect(() => {
+    setRotatingCards(images.map((_, i) => i * (360 / images.length)));
+  }, [images]);
+
+  useEffect(() => {
+    if (!imagesLoaded || prefersReducedMotion) return;
+
+    const fps = isMobile ? 30 : 60;
+    const rotationSpeed = isMobile ? 0.5 : 0.3;
+    const interval = setInterval(() => {
+      setRotatingCards((prev) => prev.map((angle) => (angle + rotationSpeed) % 360));
+    }, 1000 / fps);
+
+    return () => clearInterval(interval);
+  }, [isMobile, imagesLoaded, prefersReducedMotion]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: (e.clientX - rect.left) / rect.width,
+      y: (e.clientY - rect.top) / rect.height,
+    });
+  }, [isMobile]);
+
+  return (
+    <div className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-20 md:pt-20 pb-0 mb-0">
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0" />
+
+      <div className="absolute inset-0 overflow-hidden z-0">
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(245, 212, 122, 0.1) 0%, transparent 50%)',
+            animation: prefersReducedMotion ? 'none' : 'shimmer 8s ease-in-out infinite',
+          }}
+        />
+      </div>
+
+      <div
+        className={`relative w-full max-w-6xl transition-all duration-1000 ${
+          isVisible
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-5'
+        }`}
+        style={{
+          height: isMobile ? '40vh' : '450px',
+          minHeight: isMobile ? '280px' : '450px',
+          maxHeight: isMobile ? '350px' : '600px',
+        }}
+      >
+        <div
+          className="relative w-full h-full flex items-center justify-center"
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
+          <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: isMobile ? '800px' : '1000px' }}>
+            {imagesLoaded && images.map((image, index) => {
+              const angle = (rotatingCards[index] || 0) * (Math.PI / 180);
+              const radius = isMobile ? 90 : (window.innerWidth < 640 ? 140 : 200);
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
+
+              const perspectiveX = (isHovering && !isMobile) ? (mousePosition.x - 0.5) * 15 : 0;
+              const perspectiveY = (isHovering && !isMobile) ? (mousePosition.y - 0.5) * 15 : 0;
+
+              return (
+                <div
+                  key={image.id}
+                  className="absolute w-20 h-24 sm:w-30 sm:h-38"
+                  style={{
+                    transform: `
+                      translate(${x}px, ${y}px)
+                      rotateX(${perspectiveY}deg)
+                      rotateY(${perspectiveX}deg)
+                      rotateZ(${image.rotation}deg)
+                    `,
+                    transformStyle: 'preserve-3d',
+                    willChange: 'transform',
+                  }}
+                >
+                  <div
+                    className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      boxShadow: '0 10px 40px rgba(212, 175, 55, 0.3)',
+                    }}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      loading="eager"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      style={{ backfaceVisibility: 'hidden' }}
+                    />
+                    {!isMobile && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    )}
+                    <div className="absolute inset-0 ring-1 ring-[#D4AF37]/20 rounded-2xl" />
+                  </div>
+                </div>
+              );
+            })}
+
+            <div className="relative z-10">
+              <img
+                alt="EBRIVA Hair Design Logo"
+                className={`w-32 h-32 md:w-56 md:h-56 ${
+                  prefersReducedMotion ? '' : 'breathing-animation'
+                }`}
+                src="/logo1.png"
+                style={{
+                  filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.6))',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`relative z-20 max-w-3xl mx-auto mt-4 md:mt-12 transition-all duration-1000 delay-300 ${
+          isVisible
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-5'
+        }`}
+      >
+        <div className="mb-4">
+          <AuroraText className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-2 leading-tight tracking-tight uppercase">
+            EBRIVA
+          </AuroraText>
+          <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4" />
+        </div>
+
+        <TypewriterText
+          words={[
+            { text: "Güzelliğiniz", className: "text-gray-300 font-light" },
+            { text: "Bizim", className: "text-gray-300 font-light" },
+            { text: "İşimiz", className: "text-[#D4AF37] font-semibold" }
+          ]}
+          className="mb-6"
+          cursorClassName="bg-[#D4AF37]"
+        />
+
+        <p className="text-gray-400 text-sm md:text-lg mb-6 max-w-xl mx-auto leading-relaxed font-light px-4">
+          Premium saç tasarımı ve güzellik hizmetleriyle
+          <span className="text-[#D4AF37]"> size özel </span>
+          deneyim yaşayın
+        </p>
+
+        <a
+          href="https://wa.me/905316498371?text=Merhaba,%20randevu%20almak%20istiyorum"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm md:text-lg transition-all duration-300 active:scale-95 group relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #D4AF37 0%, #F5D47A 100%)',
+            color: '#0A0A0A',
+            boxShadow: '0 10px 40px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2)',
+          }}
+          onMouseEnter={(e) => {
+            if (!isMobile && !prefersReducedMotion) {
+              e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 15px 50px rgba(212, 175, 55, 0.5), 0 0 30px rgba(212, 175, 55, 0.3)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!isMobile) {
+              e.currentTarget.style.transform = 'scale(1) translateY(0)';
+              e.currentTarget.style.boxShadow = '0 10px 40px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2)';
+            }
+          }}
+        >
+          <span className="relative z-10">Randevu Al</span>
+          <ArrowRight
+            className={`w-5 h-5 ${
+              prefersReducedMotion ? '' : 'group-hover:translate-x-1'
+            } transition-transform relative z-10`}
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-[#F5D47A] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          />
+        </a>
+
+        <div className="flex items-center justify-center gap-4 mt-6 text-xs text-gray-500 uppercase tracking-widest">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+            <span>Premium Service</span>
+          </div>
+          <div className="w-px h-4 bg-[#D4AF37]/30" />
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+            <span>Expert Team</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
