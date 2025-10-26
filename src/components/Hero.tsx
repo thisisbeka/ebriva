@@ -213,13 +213,21 @@ export default function Hero() {
           <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4 lg:hidden" />
         </div>
 
-        <p className="mt-2 text-sm md:text-base lg:text-[clamp(14px,1.6vw,18px)] text-gray-400 lg:text-gray-300/85 max-w-2xl mx-auto">
-          Güzelliğiniz Bizim <span className="text-[#F5D47A] font-semibold">İşimiz</span>
-        </p>
+        <div className="mt-2">
+          <TypewriterText
+            words={[
+              { text: 'Güzelliğiniz', className: 'text-gray-300' },
+              { text: 'Bizim', className: 'text-gray-300' },
+              { text: 'İşimiz', className: 'text-[#F5D47A] font-semibold' },
+            ]}
+            className=""
+            cursorClassName="bg-[#D4AF37]"
+          />
+        </div>
       </div>
 
       {/* 3) CTA + Features - Desktop: pushed to bottom */}
-      <div className={`lg:mt-auto flex flex-col items-center gap-4 transition-all duration-1000 delay-300 ${
+      <div className={`lg:mt-auto mt-8 flex flex-col items-center gap-4 transition-all duration-1000 delay-300 ${
         isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-5'
