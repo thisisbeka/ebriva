@@ -15,44 +15,21 @@ export default function TypewriterText({ words, className = '', cursorClassName 
   const [charIndex, setCharIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const fullText = words.map(w => w.text).join(' ');
 
+  useEffect(() => {
+    const audio = new Audio('https://cdn.freesound.org/previews/648/648142_11861866-lq.mp3');
+    audio.volume = 0.15;
+    audioRef.current = audio;
+  }, []);
+
   const playKeySound = () => {
-    if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
     }
-
-    const ctx = audioContextRef.current;
-
-    const osc1 = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-    const filter = ctx.createBiquadFilter();
-
-    osc1.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(ctx.destination);
-
-    const baseFreq = 1800 + Math.random() * 400;
-    osc1.frequency.value = baseFreq;
-    osc2.frequency.value = baseFreq * 2.1;
-    osc1.type = 'triangle';
-    osc2.type = 'sine';
-
-    filter.type = 'lowpass';
-    filter.frequency.value = 3000;
-    filter.Q.value = 1;
-
-    gainNode.gain.setValueAtTime(0.04, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
-
-    osc1.start(ctx.currentTime);
-    osc2.start(ctx.currentTime);
-    osc1.stop(ctx.currentTime + 0.04);
-    osc2.stop(ctx.currentTime + 0.04);
   };
 
   useEffect(() => {
