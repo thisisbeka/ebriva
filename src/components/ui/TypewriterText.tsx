@@ -14,20 +14,34 @@ export default function TypewriterText({ words, className = '', cursorClassName 
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const fullText = words.map(w => w.text).join(' ');
 
   useEffect(() => {
-    if (charIndex < fullText.length) {
+    if (!isDeleting && charIndex < fullText.length) {
       const timeout = setTimeout(() => {
         setDisplayedText(fullText.slice(0, charIndex + 1));
         setCharIndex(charIndex + 1);
       }, 100);
       return () => clearTimeout(timeout);
-    } else {
+    } else if (!isDeleting && charIndex === fullText.length) {
       setIsComplete(true);
+      const pauseTimeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, 3000);
+      return () => clearTimeout(pauseTimeout);
+    } else if (isDeleting && charIndex > 0) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, charIndex - 1));
+        setCharIndex(charIndex - 1);
+      }, 50);
+      return () => clearTimeout(timeout);
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setIsComplete(false);
     }
-  }, [charIndex, fullText]);
+  }, [charIndex, fullText, isDeleting]);
 
   const getCharClassName = (index: number) => {
     let currentLength = 0;
