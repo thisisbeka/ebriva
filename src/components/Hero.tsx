@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { AuroraText } from './ui/AuroraText';
 import TypewriterText from './ui/TypewriterText';
+import AuroraLayer from './ui/AuroraLayer';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -91,7 +93,8 @@ export default function Hero() {
   }, [isMobile]);
 
   return (
-    <div className="hero-section relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-20 md:pt-20 pb-0 mb-0">
+    <div className="hero-section relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-20 md:pt-20 pb-0 mb-0 overflow-hidden">
+      <AuroraLayer />
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0" />
 
       <div className="absolute inset-0 overflow-hidden z-0">
@@ -194,18 +197,21 @@ export default function Hero() {
             : 'opacity-0 translate-y-5'
         }`}
       >
-        <div className="mb-4">
-          <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-2 leading-tight tracking-tight uppercase">
-            EBRIVA
-          </AuroraText>
+        <div className="mb-4 relative">
+          <div className="relative">
+            <span className="absolute inset-0 blur-3xl bg-[#D4AF37]/20 -z-10 animate-pulse"></span>
+            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-2 leading-tight tracking-tight uppercase">
+              EBRIVA
+            </AuroraText>
+          </div>
           <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4" />
         </div>
 
         <TypewriterText
           words={[
-            { text: "Güzelliğiniz", className: "text-gray-300 font-light" },
-            { text: "Bizim", className: "text-gray-300 font-light" },
-            { text: "İşimiz", className: "text-[#D4AF37] font-semibold" }
+            { text: "Güzelliğiniz", className: "gradient-text font-light" },
+            { text: "Bizim", className: "gradient-text font-light" },
+            { text: "İşimiz", className: "gradient-text font-semibold" }
           ]}
           className="mb-6"
           cursorClassName="bg-[#D4AF37]"
@@ -264,6 +270,32 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {!isMobile && imagesLoaded && (
+        <>
+          <motion.div
+            animate={{
+              y: [0, -10, 0],
+              rotateZ: [0, 1.5, -1.5, 0],
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-16 left-6 w-[140px] h-[180px] rounded-2xl overflow-hidden backdrop-blur-md border border-[#D4AF37]/15 shadow-[0_0_20px_rgba(212,175,55,0.15)] hidden lg:block"
+          >
+            <img src="/gallery/PHOTO-2025-10-11-22-06-09.jpg" className="object-cover w-full h-full" alt="Floating work 1" />
+          </motion.div>
+
+          <motion.div
+            animate={{
+              y: [0, 12, 0],
+              rotateZ: [0, -1.5, 1.5, 0],
+            }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute bottom-20 right-6 w-[120px] h-[160px] rounded-2xl overflow-hidden backdrop-blur-md border border-[#D4AF37]/15 shadow-[0_0_20px_rgba(212,175,55,0.15)] hidden lg:block"
+          >
+            <img src="/gallery/PHOTO-2025-10-11-22-06-15.jpg" className="object-cover w-full h-full" alt="Floating work 2" />
+          </motion.div>
+        </>
+      )}
     </div>
   );
 }

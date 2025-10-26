@@ -290,6 +290,52 @@ html {
     }
   }
 
+  @keyframes aurora {
+    0%, 100% {
+      transform: translate(-10%, -5%) scale(1.05);
+    }
+    50% {
+      transform: translate(10%, 10%) scale(1.15);
+    }
+  }
+
+  .animate-aurora {
+    animation: aurora 12s ease-in-out infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-aurora {
+      animation: none;
+    }
+  }
+
+  .gradient-text {
+    background: linear-gradient(270deg, #f5d47a, #d4af37, #a47c25);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textFlow 8s ease infinite;
+  }
+
+  @keyframes textFlow {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gradient-text {
+      animation: none;
+      background: linear-gradient(90deg, #f5d47a, #d4af37);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+  }
+
   .hero-container {
     position: relative;
     min-height: 100vh;
