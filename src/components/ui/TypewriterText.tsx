@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface TypewriterTextProps {
   words: {
@@ -15,12 +15,36 @@ export default function TypewriterText({ words, className = '', cursorClassName 
   const [charIndex, setCharIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   const fullText = words.map(w => w.text).join(' ');
+
+  const playKeySound = () => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+
+    const ctx = audioContextRef.current;
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.frequency.value = 800 + Math.random() * 200;
+    oscillator.type = 'sine';
+
+    gainNode.gain.setValueAtTime(0.03, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 0.05);
+  };
 
   useEffect(() => {
     if (!isDeleting && charIndex < fullText.length) {
       const timeout = setTimeout(() => {
+        playKeySound();
         setDisplayedText(fullText.slice(0, charIndex + 1));
         setCharIndex(charIndex + 1);
       }, 100);
