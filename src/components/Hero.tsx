@@ -145,7 +145,7 @@ export default function Hero() {
               return (
                 <div
                   key={image.id}
-                  className="absolute w-20 h-24 sm:w-30 sm:h-38"
+                  className="absolute w-20 h-24 sm:w-30 sm:h-38 lg:w-36 lg:h-44 xl:w-40 xl:h-48"
                   style={{
                     transform: `
                       translate(${x}px, ${y}px)
@@ -206,7 +206,7 @@ export default function Hero() {
         <div className="mb-4 relative">
           <div className="relative">
             <span className="absolute inset-0 blur-3xl bg-[#D4AF37]/20 -z-10 animate-pulse"></span>
-            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-[clamp(40px,7vw,96px)] font-black font-heading mb-2 lg:leading-[0.95] leading-tight tracking-tight uppercase">
+            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-[clamp(34px,5.95vw,82px)] font-black font-heading mb-2 lg:leading-[0.95] leading-tight tracking-tight uppercase">
               EBRIVA
             </AuroraText>
           </div>
