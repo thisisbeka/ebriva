@@ -93,7 +93,10 @@ export default function Hero() {
   }, [isMobile]);
 
   return (
-    <div className="hero-section relative min-h-screen lg:min-h-[min(820px,calc(100svh-88px))] flex flex-col justify-center lg:justify-start items-center text-center px-4 z-10 pt-20 lg:pt-[88px] pb-0 lg:pb-6 mb-0 overflow-hidden">
+    <section
+      id="home"
+      className="hero-section relative min-h-screen lg:min-h-[min(820px,calc(100svh-88px))] flex flex-col justify-center lg:justify-start items-center text-center px-4 z-10 pt-20 lg:pt-[88px] pb-0 lg:pb-6 mb-0 overflow-clip"
+    >
       <AuroraLayer />
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0" />
 
@@ -107,18 +110,21 @@ export default function Hero() {
         />
       </div>
 
-      <div
-        className={`relative w-full max-w-6xl transition-all duration-1000 lg:origin-center lg:scale-[0.92] xl:scale-[0.95] 2xl:scale-100 ${
-          isVisible
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-5'
-        }`}
-        style={{
-          height: isMobile ? '40vh' : '450px',
-          minHeight: isMobile ? '280px' : '450px',
-          maxHeight: isMobile ? '350px' : 'min(58vh, 520px)',
-        }}
-      >
+      <div className="container mx-auto lg:grid lg:grid-rows-[auto_auto_auto] lg:gap-4 xl:gap-6 lg:h-full">
+        {/* 1) Orbit scene */}
+        <div
+          className={`relative mx-auto transition-all duration-1000 lg:origin-center lg:scale-[0.90] xl:scale-[0.95] 2xl:scale-100 ${
+            isVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-5'
+          }`}
+          style={{
+            height: isMobile ? '40vh' : 'clamp(380px, 50vh, 560px)',
+            width: isMobile ? '100%' : 'clamp(380px, 50vh, 560px)',
+            minHeight: isMobile ? '280px' : '380px',
+            maxHeight: isMobile ? '350px' : '560px',
+          }}
+        >
         <div
           className="relative w-full h-full flex items-center justify-center"
           onMouseMove={handleMouseMove}
@@ -128,7 +134,8 @@ export default function Hero() {
           <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: isMobile ? '800px' : '1000px' }}>
             {imagesLoaded && images.map((image, index) => {
               const angle = (rotatingCards[index] || 0) * (Math.PI / 180);
-              const radius = isMobile ? 90 : (window.innerWidth < 640 ? 140 : 200);
+              const isDesktop = window.innerWidth >= 1024;
+              const radius = isMobile ? 90 : (isDesktop ? (window.innerWidth >= 1280 ? 210 : window.innerWidth >= 1536 ? 220 : 190) : 140);
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
 
@@ -188,40 +195,35 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
 
-      <div
-        className={`relative z-20 max-w-3xl mx-auto mt-4 lg:mt-0 lg:-mt-3 transition-all duration-1000 delay-300 ${
+        {/* 2) Title + Subtitle */}
+        <div className={`text-center lg:-mt-2 xl:-mt-3 transition-all duration-1000 delay-300 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-5'
-        }`}
-      >
+        }`}>
         <div className="mb-4 relative">
           <div className="relative">
             <span className="absolute inset-0 blur-3xl bg-[#D4AF37]/20 -z-10 animate-pulse"></span>
-            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-[clamp(3.5rem,6vw,5.25rem)] font-bold font-heading mb-2 leading-[0.95] tracking-tight uppercase">
+            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-[clamp(40px,7vw,96px)] font-black font-heading mb-2 lg:leading-[0.95] leading-tight tracking-tight uppercase">
               EBRIVA
             </AuroraText>
           </div>
-          <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4" />
+          <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4 lg:hidden" />
         </div>
 
-        <TypewriterText
-          words={[
-            { text: "Güzelliğiniz", className: "gradient-text font-light" },
-            { text: "Bizim", className: "gradient-text font-light" },
-            { text: "İşimiz", className: "gradient-text font-semibold" }
-          ]}
-          className="mb-6"
-          cursorClassName="bg-[#D4AF37]"
-        />
-
-        <p className="text-gray-400 text-sm md:text-lg lg:text-[clamp(0.875rem,1.6vw,1.125rem)] mb-6 max-w-xl mx-auto leading-relaxed font-light px-4">
-          Premium saç tasarımı ve güzellik hizmetleriyle
-          <span className="text-[#D4AF37]"> size özel </span>
-          deneyim yaşayın
+        <p className="mt-2 text-sm md:text-base lg:text-[clamp(14px,1.6vw,18px)] text-gray-400 lg:text-gray-300/85 max-w-2xl mx-auto">
+          Güzelliğiniz Bizim <span className="text-[#F5D47A] font-semibold">İşimiz</span>
         </p>
+      </div>
+
+      {/* 3) CTA + Features - Desktop: pushed to bottom */}
+      <div className={`lg:mt-auto flex flex-col items-center gap-4 transition-all duration-1000 delay-300 ${
+        isVisible
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-5'
+      }`}>
 
         <a
           ref={btnRef}
@@ -258,17 +260,17 @@ export default function Hero() {
           />
         </a>
 
-        <div className="flex items-center justify-center gap-4 lg:gap-6 mt-6 lg:mt-4 text-xs lg:text-sm text-gray-500 lg:text-gray-300/80 uppercase tracking-widest">
-          <div className="flex items-center gap-2">
+        <ul className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm text-gray-500 lg:text-gray-300/80">
+          <li className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
             <span>Premium Service</span>
-          </div>
-          <div className="w-px h-4 bg-[#D4AF37]/30" />
-          <div className="flex items-center gap-2">
+          </li>
+          <li className="opacity-40">|</li>
+          <li className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
             <span>Expert Team</span>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
 
       {!isMobile && imagesLoaded && (
@@ -296,6 +298,7 @@ export default function Hero() {
           </motion.div>
         </>
       )}
-    </div>
+      </div>
+    </section>
   );
 }
