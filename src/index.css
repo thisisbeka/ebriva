@@ -55,11 +55,11 @@ html {
   @keyframes breathing {
     0%, 100% {
       transform: scale(1);
-      filter: drop-shadow(0 0 8px var(--primary-color)) brightness(1);
+      filter: drop-shadow(0 0 15px var(--primary-color)) brightness(1);
     }
     50% {
       transform: scale(1.08);
-      filter: drop-shadow(0 0 35px var(--primary-color)) drop-shadow(0 0 50px rgba(212, 175, 55, 0.4)) brightness(1.15);
+      filter: drop-shadow(0 0 30px var(--primary-color)) brightness(1.12);
     }
   }
 
