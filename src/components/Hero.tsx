@@ -135,7 +135,7 @@ export default function Hero() {
             {imagesLoaded && images.map((image, index) => {
               const angle = (rotatingCards[index] || 0) * (Math.PI / 180);
               const isDesktop = window.innerWidth >= 1024;
-              const radius = isMobile ? 90 : (isDesktop ? (window.innerWidth >= 1280 ? 210 : window.innerWidth >= 1536 ? 220 : 190) : 140);
+              const radius = isMobile ? 110 : (isDesktop ? (window.innerWidth >= 1280 ? 210 : window.innerWidth >= 1536 ? 220 : 190) : 140);
               const x = Math.cos(angle) * radius;
               const y = Math.sin(angle) * radius;
 
