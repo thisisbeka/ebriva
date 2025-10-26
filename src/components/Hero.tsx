@@ -93,7 +93,7 @@ export default function Hero() {
   }, [isMobile]);
 
   return (
-    <div className="hero-section relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-20 md:pt-20 pb-0 mb-0 overflow-hidden">
+    <div className="hero-section relative min-h-screen lg:min-h-[min(820px,calc(100svh-88px))] flex flex-col justify-center lg:justify-start items-center text-center px-4 z-10 pt-20 lg:pt-[88px] pb-0 lg:pb-6 mb-0 overflow-hidden">
       <AuroraLayer />
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0" />
 
@@ -108,7 +108,7 @@ export default function Hero() {
       </div>
 
       <div
-        className={`relative w-full max-w-6xl transition-all duration-1000 ${
+        className={`relative w-full max-w-6xl transition-all duration-1000 lg:origin-center lg:scale-[0.92] xl:scale-[0.95] 2xl:scale-100 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-5'
@@ -116,7 +116,7 @@ export default function Hero() {
         style={{
           height: isMobile ? '40vh' : '450px',
           minHeight: isMobile ? '280px' : '450px',
-          maxHeight: isMobile ? '350px' : '600px',
+          maxHeight: isMobile ? '350px' : 'min(58vh, 520px)',
         }}
       >
         <div
@@ -154,7 +154,7 @@ export default function Hero() {
                     className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
                     style={{
                       transformStyle: 'preserve-3d',
-                      boxShadow: '0 10px 40px rgba(212, 175, 55, 0.3)',
+                      boxShadow: isMobile ? '0 10px 40px rgba(212, 175, 55, 0.3)' : '0 0 24px rgba(212, 175, 55, 0.20)',
                     }}
                   >
                     <img
@@ -191,7 +191,7 @@ export default function Hero() {
       </div>
 
       <div
-        className={`relative z-20 max-w-3xl mx-auto mt-4 md:mt-12 transition-all duration-1000 delay-300 ${
+        className={`relative z-20 max-w-3xl mx-auto mt-4 lg:mt-0 lg:-mt-3 transition-all duration-1000 delay-300 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-5'
@@ -200,7 +200,7 @@ export default function Hero() {
         <div className="mb-4 relative">
           <div className="relative">
             <span className="absolute inset-0 blur-3xl bg-[#D4AF37]/20 -z-10 animate-pulse"></span>
-            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-2 leading-tight tracking-tight uppercase">
+            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-[clamp(3.5rem,6vw,5.25rem)] font-bold font-heading mb-2 leading-[0.95] tracking-tight uppercase">
               EBRIVA
             </AuroraText>
           </div>
@@ -217,7 +217,7 @@ export default function Hero() {
           cursorClassName="bg-[#D4AF37]"
         />
 
-        <p className="text-gray-400 text-sm md:text-lg mb-6 max-w-xl mx-auto leading-relaxed font-light px-4">
+        <p className="text-gray-400 text-sm md:text-lg lg:text-[clamp(0.875rem,1.6vw,1.125rem)] mb-6 max-w-xl mx-auto leading-relaxed font-light px-4">
           Premium saç tasarımı ve güzellik hizmetleriyle
           <span className="text-[#D4AF37]"> size özel </span>
           deneyim yaşayın
@@ -258,7 +258,7 @@ export default function Hero() {
           />
         </a>
 
-        <div className="flex items-center justify-center gap-4 mt-6 text-xs text-gray-500 uppercase tracking-widest">
+        <div className="flex items-center justify-center gap-4 lg:gap-6 mt-6 lg:mt-4 text-xs lg:text-sm text-gray-500 lg:text-gray-300/80 uppercase tracking-widest">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
             <span>Premium Service</span>
