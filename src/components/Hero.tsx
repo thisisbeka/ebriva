@@ -198,7 +198,7 @@ export default function Hero() {
         </div>
 
         {/* 2) Title + Subtitle */}
-        <div className={`text-center lg:mt-0 xl:mt-1 transition-all duration-1000 delay-300 ${
+        <div className={`text-center mt-3 lg:mt-0 xl:mt-1 transition-all duration-1000 delay-300 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-5'
@@ -206,7 +206,7 @@ export default function Hero() {
         <div className="mb-4 relative">
           <div className="relative">
             <span className="absolute inset-0 blur-3xl bg-[#D4AF37]/20 -z-10 animate-pulse"></span>
-            <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-[clamp(34px,5.95vw,82px)] font-black font-heading mb-2 lg:leading-[0.95] leading-tight tracking-tight uppercase">
+            <AuroraText className="gold-foil text-[2.7rem] sm:text-[3.35rem] md:text-7xl lg:text-[clamp(34px,5.95vw,82px)] font-black font-heading mb-2 lg:leading-[0.95] leading-tight tracking-tight uppercase">
               EBRIVA
             </AuroraText>
           </div>
@@ -226,7 +226,7 @@ export default function Hero() {
       </div>
 
       {/* 3) CTA + Features - Desktop: pushed to bottom */}
-      <div className={`lg:mt-auto mt-8 flex flex-col items-center gap-3 lg:gap-2 transition-all duration-1000 delay-300 ${
+      <div className={`lg:mt-auto mt-8 flex flex-col items-center gap-5 lg:gap-2 transition-all duration-1000 delay-300 ${
         isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-5'
