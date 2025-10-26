@@ -75,7 +75,7 @@ export default function Hero() {
     if (!imagesLoaded || prefersReducedMotion || !heroVisible) return;
 
     const fps = isMobile ? 30 : 60;
-    const rotationSpeed = isMobile ? 0.5 : 0.3;
+    const rotationSpeed = isMobile ? 0.45 : 0.27;
     const interval = setInterval(() => {
       setRotatingCards((prev) => prev.map((angle) => (angle + rotationSpeed) % 360));
     }, 1000 / fps);
@@ -198,7 +198,7 @@ export default function Hero() {
         </div>
 
         {/* 2) Title + Subtitle */}
-        <div className={`text-center lg:-mt-2 xl:-mt-3 transition-all duration-1000 delay-300 ${
+        <div className={`text-center lg:mt-2 xl:mt-3 transition-all duration-1000 delay-300 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-5'
