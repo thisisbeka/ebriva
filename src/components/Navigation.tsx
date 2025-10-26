@@ -46,7 +46,14 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      const headerHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
       setMobileMenuOpen(false);
     }
   };
