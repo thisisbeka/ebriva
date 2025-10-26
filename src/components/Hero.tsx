@@ -145,7 +145,7 @@ export default function Hero() {
               return (
                 <div
                   key={image.id}
-                  className="absolute w-20 h-24 sm:w-30 sm:h-38 lg:w-36 lg:h-44 xl:w-40 xl:h-48"
+                  className="absolute w-[86px] h-[103px] sm:w-[130px] sm:h-[162px] lg:w-36 lg:h-44 xl:w-40 xl:h-48"
                   style={{
                     transform: `
                       translate(${x}px, ${y}px)
@@ -210,7 +210,6 @@ export default function Hero() {
               EBRIVA
             </AuroraText>
           </div>
-          <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4 lg:hidden" />
         </div>
 
         <div className="mt-2">
