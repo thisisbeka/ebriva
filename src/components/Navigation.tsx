@@ -140,6 +140,9 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
         role="dialog"
         aria-modal="true"
       >
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/70 via-transparent to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
+
         {mobileMenuOpen && !prefersReducedMotion && (
           <div key={beamKey} className="pointer-events-none absolute inset-0">
             <div className="beam-glow animate-beam-diagonal absolute -inset-x-1/2 -inset-y-1/2" />
@@ -150,7 +153,7 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
         <motion.ul
           variants={variants}
           animate={mobileMenuOpen ? 'open' : 'closed'}
-          className="flex flex-col justify-center items-center h-full space-y-6"
+          className="flex flex-col justify-center items-center h-full space-y-6 relative z-20"
         >
           {navItems.map((link) => (
             <motion.li

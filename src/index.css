@@ -463,28 +463,30 @@ html {
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(255, 245, 200, 0.55) 35%,
-    rgba(255, 215, 120, 0.75) 50%,
-    rgba(255, 245, 200, 0.55) 65%,
+    rgba(245, 212, 122, 0.05) 25%,
+    rgba(240, 195, 80, 0.25) 45%,
+    rgba(210, 160, 50, 0.35) 50%,
+    rgba(240, 195, 80, 0.25) 55%,
+    rgba(245, 212, 122, 0.05) 75%,
     transparent 100%
   );
-  filter: blur(6px);
-  mix-blend-mode: screen;
+  filter: blur(14px) brightness(1.1);
+  mix-blend-mode: overlay;
 }
 
 .beam-glow {
   background: radial-gradient(
-    180px 60px at 50% 50%,
-    rgba(245, 212, 122, 0.25),
-    rgba(245, 212, 122, 0.12) 60%,
+    300px 120px at 50% 50%,
+    rgba(230, 180, 70, 0.25),
+    rgba(245, 212, 122, 0.08) 60%,
     transparent 100%
   );
-  filter: blur(18px);
-  mix-blend-mode: screen;
+  filter: blur(30px) saturate(1.2);
+  mix-blend-mode: soft-light;
 }
 
 .animate-beam {
-  animation: beam-sweep 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1;
+  animation: beam-sweep 1.8s cubic-bezier(0.45, 0, 0.2, 1) 1 forwards;
 }
 
 .animate-beam-diagonal {
