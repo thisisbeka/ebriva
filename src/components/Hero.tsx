@@ -110,19 +110,19 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container mx-auto lg:grid lg:grid-rows-[auto_auto_auto] lg:gap-4 xl:gap-6 lg:h-full">
+      <div className="container mx-auto lg:grid lg:grid-rows-[auto_auto_auto] lg:gap-2 xl:gap-3 lg:h-full">
         {/* 1) Orbit scene */}
         <div
-          className={`relative mx-auto transition-all duration-1000 lg:origin-center lg:scale-[0.90] xl:scale-[0.95] 2xl:scale-100 ${
+          className={`relative mx-auto transition-all duration-1000 lg:origin-center lg:scale-[0.80] xl:scale-[0.85] 2xl:scale-[0.90] ${
             isVisible
               ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-5'
           }`}
           style={{
-            height: isMobile ? '40vh' : 'clamp(450px, 55vh, 650px)',
-            width: isMobile ? '100%' : 'clamp(450px, 55vh, 650px)',
-            minHeight: isMobile ? '280px' : '450px',
-            maxHeight: isMobile ? '350px' : '560px',
+            height: isMobile ? '40vh' : 'clamp(380px, 48vh, 550px)',
+            width: isMobile ? '100%' : 'clamp(380px, 48vh, 550px)',
+            minHeight: isMobile ? '280px' : '380px',
+            maxHeight: isMobile ? '350px' : '480px',
           }}
         >
         <div
@@ -198,7 +198,7 @@ export default function Hero() {
         </div>
 
         {/* 2) Title + Subtitle */}
-        <div className={`text-center lg:mt-2 xl:mt-3 transition-all duration-1000 delay-300 ${
+        <div className={`text-center lg:mt-0 xl:mt-1 transition-all duration-1000 delay-300 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-5'
@@ -227,7 +227,7 @@ export default function Hero() {
       </div>
 
       {/* 3) CTA + Features - Desktop: pushed to bottom */}
-      <div className={`lg:mt-auto mt-8 flex flex-col items-center gap-4 transition-all duration-1000 delay-300 ${
+      <div className={`lg:mt-auto mt-8 flex flex-col items-center gap-3 lg:gap-2 transition-all duration-1000 delay-300 ${
         isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-5'
@@ -238,7 +238,7 @@ export default function Hero() {
           href="https://wa.me/905316498371?text=Merhaba,%20randevu%20almak%20istiyorum"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm md:text-lg transition-all duration-300 active:scale-95 group relative overflow-hidden"
+          className="inline-flex items-center gap-2 px-8 py-4 lg:py-3 rounded-full font-semibold text-sm md:text-lg lg:text-base transition-all duration-300 active:scale-95 group relative overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #D4AF37 0%, #F5D47A 100%)',
             color: '#0A0A0A',
@@ -268,7 +268,7 @@ export default function Hero() {
           />
         </a>
 
-        <ul className="flex items-center gap-4 lg:gap-8 text-xs lg:text-base text-gray-500 lg:text-gray-300/80">
+        <ul className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm text-gray-500 lg:text-gray-300/80">
           <li className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
             <span className="whitespace-nowrap">Premium Service</span>
