@@ -6,7 +6,7 @@ import Gallery from './components/Gallery';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import FloatingBubbles from './components/FloatingBubbles';
+import GoldDivider from './components/ui/GoldDivider';
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,16 +20,16 @@ function App() {
         <Hero />
       </div>
 
-      <hr className="my-0 h-px border-0 bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+      <GoldDivider />
       <Services />
 
-      <hr className="my-0 h-px border-0 bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+      <GoldDivider />
       <Gallery />
 
-      <hr className="my-0 h-px border-0 bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+      <GoldDivider />
       <About />
 
-      <hr className="my-0 h-px border-0 bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+      <GoldDivider />
       <Contact />
 
       <Footer />

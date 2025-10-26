@@ -257,6 +257,39 @@ html {
     animation: aurora-flow 4s ease-in-out infinite;
   }
 
+  .gold-foil {
+    background: linear-gradient(90deg, #F6E27A 0%, #D4AF37 35%, #C89B3C 60%, #F6E27A 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gold-foil::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.25) 38%, transparent 70%);
+    transform: translateX(-110%);
+    animation: sheen 7s ease-in-out infinite;
+  }
+
+  @keyframes sheen {
+    0%, 60% {
+      transform: translateX(-110%);
+    }
+    75%, 100% {
+      transform: translateX(110%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gold-foil::after {
+      animation: none;
+    }
+  }
+
   .hero-container {
     position: relative;
     min-height: 100vh;

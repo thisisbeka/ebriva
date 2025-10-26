@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { AuroraText } from './ui/AuroraText';
 import TypewriterText from './ui/TypewriterText';
@@ -11,6 +11,8 @@ export default function Hero() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(true);
+  const btnRef = useRef<HTMLAnchorElement | null>(null);
 
   const images = useMemo(() => [
     { id: '1', src: '/fn1.jpeg', alt: 'Salon Work 1', rotation: -15 },
@@ -58,7 +60,17 @@ export default function Hero() {
   }, [images]);
 
   useEffect(() => {
-    if (!imagesLoaded || prefersReducedMotion) return;
+    const node = document.querySelector('.hero-section');
+    if (!node) return;
+    const io = new IntersectionObserver((entries) => {
+      setHeroVisible(entries[0].isIntersecting);
+    }, { threshold: 0.2 });
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!imagesLoaded || prefersReducedMotion || !heroVisible) return;
 
     const fps = isMobile ? 30 : 60;
     const rotationSpeed = isMobile ? 0.5 : 0.3;
@@ -67,7 +79,7 @@ export default function Hero() {
     }, 1000 / fps);
 
     return () => clearInterval(interval);
-  }, [isMobile, imagesLoaded, prefersReducedMotion]);
+  }, [isMobile, imagesLoaded, prefersReducedMotion, heroVisible]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (isMobile) return;
@@ -79,7 +91,7 @@ export default function Hero() {
   }, [isMobile]);
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-20 md:pt-20 pb-0 mb-0">
+    <div className="hero-section relative min-h-screen flex flex-col justify-center items-center text-center px-4 z-10 pt-20 md:pt-20 pb-0 mb-0">
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-0" />
 
       <div className="absolute inset-0 overflow-hidden z-0">
@@ -183,7 +195,7 @@ export default function Hero() {
         }`}
       >
         <div className="mb-4">
-          <AuroraText className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-2 leading-tight tracking-tight uppercase">
+          <AuroraText className="gold-foil text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-2 leading-tight tracking-tight uppercase">
             EBRIVA
           </AuroraText>
           <div className="h-0.5 w-20 mx-auto bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-60 mb-4" />
@@ -206,6 +218,7 @@ export default function Hero() {
         </p>
 
         <a
+          ref={btnRef}
           href="https://wa.me/905316498371?text=Merhaba,%20randevu%20almak%20istiyorum"
           target="_blank"
           rel="noopener noreferrer"
@@ -213,18 +226,18 @@ export default function Hero() {
           style={{
             background: 'linear-gradient(135deg, #D4AF37 0%, #F5D47A 100%)',
             color: '#0A0A0A',
-            boxShadow: '0 10px 40px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2)',
+            boxShadow: '0 0 24px rgba(212, 175, 55, 0.35)',
           }}
-          onMouseEnter={(e) => {
-            if (!isMobile && !prefersReducedMotion) {
-              e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 15px 50px rgba(212, 175, 55, 0.5), 0 0 30px rgba(212, 175, 55, 0.3)';
-            }
+          onMouseMove={(e) => {
+            if (isMobile || !btnRef.current) return;
+            const r = btnRef.current.getBoundingClientRect();
+            const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+            const y = ((e.clientY - r.top) / r.height - 0.5) * 8;
+            btnRef.current.style.transform = `translate(${x}px, ${y}px)`;
           }}
-          onMouseLeave={(e) => {
-            if (!isMobile) {
-              e.currentTarget.style.transform = 'scale(1) translateY(0)';
-              e.currentTarget.style.boxShadow = '0 10px 40px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2)';
+          onMouseLeave={() => {
+            if (btnRef.current) {
+              btnRef.current.style.transform = 'translate(0, 0)';
             }
           }}
         >

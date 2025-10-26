@@ -39,8 +39,6 @@ export default function Contact() {
         />
       </div>
 
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
-
       <div className="container mx-auto relative z-10">
         <div
           className={`transition-all duration-1000 ${
@@ -74,7 +72,7 @@ export default function Contact() {
               backdropFilter: 'blur(14px)',
               WebkitBackdropFilter: 'blur(14px)',
               border: '1px solid rgba(212, 175, 55, 0.3)',
-              boxShadow: '0 8px 32px rgba(212, 175, 55, 0.25), inset 0 0 60px rgba(212, 175, 55, 0.08)',
+              boxShadow: '0 6px 24px rgba(212, 175, 55, 0.18), inset 0 0 40px rgba(212, 175, 55, 0.06)',
             }}
           >
             <div
@@ -223,8 +221,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
     </section>
   );
 }

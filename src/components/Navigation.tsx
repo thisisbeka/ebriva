@@ -64,12 +64,12 @@ export default function Navigation({ mobileMenuOpen, setMobileMenuOpen }: Naviga
               WebkitBackdropFilter: scrolled ? 'none' : 'blur(15px)',
               border: scrolled
                 ? 'none'
-                : '1px solid rgba(212, 175, 55, 0.2)',
+                : '1px solid rgba(212, 175, 55, 0.18)',
               borderRadius: scrolled ? '0' : '9999px',
               padding: scrolled ? '0' : '0.5rem 1rem',
               boxShadow: scrolled
                 ? 'none'
-                : '0 4px 30px rgba(212, 175, 55, 0.1)',
+                : '0 2px 18px rgba(212, 175, 55, 0.10)',
             }}
           >
             <div

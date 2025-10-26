@@ -58,8 +58,6 @@ export default function Gallery() {
         />
       </div>
 
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
-
       <div className="container mx-auto relative z-10">
         <div
           className={`transition-all duration-1000 ${
@@ -92,7 +90,7 @@ export default function Gallery() {
                 transitionDelay: `${idx * 50}ms`,
                 border: '1px solid rgba(212, 175, 55, 0.3)',
                 borderRadius: '16px',
-                boxShadow: '0 8px 32px rgba(212, 175, 55, 0.15)',
+                boxShadow: '0 6px 24px rgba(212, 175, 55, 0.12)',
               }}
             >
               <img
@@ -113,8 +111,6 @@ export default function Gallery() {
           ))}
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
     </section>
   );
 }

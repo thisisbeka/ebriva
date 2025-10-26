@@ -1,5 +1,6 @@
 import { Scissors, Palette, Sparkles, Wind, Crown, Fingerprint, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Services() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -85,7 +86,7 @@ export default function Services() {
 
   return (
     <section
-      className="relative py-16 md:py-20 px-4 overflow-hidden mt-0 mb-0 pt-16 pb-16 shadow-none ring-0"
+      className="relative py-16 md:py-20 px-4 overflow-hidden"
       id="services"
       style={{
         background: 'linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%)',
@@ -226,18 +227,19 @@ export default function Services() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {services.map((service, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`rounded-3xl p-10 text-center transition-all duration-700 hover:-translate-y-2 relative overflow-hidden group ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: 'easeOut' }}
+                className="rounded-3xl p-10 text-center transition-all duration-700 hover:-translate-y-2 relative overflow-hidden group"
                 style={{
                   background: 'rgba(10, 10, 10, 0.6)',
                   backdropFilter: 'blur(14px)',
                   WebkitBackdropFilter: 'blur(14px)',
                   border: '1px solid rgba(212, 175, 55, 0.3)',
                   boxShadow: '0 8px 32px rgba(212, 175, 55, 0.2), inset 0 0 40px rgba(212, 175, 55, 0.05)',
-                  transitionDelay: `${index * 150}ms`,
                 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500">
@@ -279,7 +281,7 @@ export default function Services() {
                     animation: 'borderFlow 3s linear infinite',
                   }}
                 />
-              </div>
+              </motion.div>
             ))}
           </div>
         )}
