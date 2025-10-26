@@ -452,25 +452,9 @@ html {
   }
 }
 
-@keyframes slow-rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes sweep {
-  0% { transform: translateX(-120%) rotate(10deg); opacity: 0; }
-  30% { opacity: 0.25; }
-  50% { transform: translateX(0%) rotate(10deg); opacity: 0.15; }
-  100% { transform: translateX(120%) rotate(10deg); opacity: 0; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-beam,
   .animate-beam-diagonal {
-    animation: none !important;
-  }
-  .animate-slow-rotate,
-  .animate-sweep {
     animation: none !important;
   }
 }
@@ -507,23 +491,4 @@ html {
 
 .animate-beam-diagonal {
   animation: beam-diagonal 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1;
-}
-
-.animate-slow-rotate {
-  animation: slow-rotate 30s linear infinite;
-}
-
-.animate-sweep {
-  animation: sweep 6s ease-in-out infinite;
-}
-
-.matte-bg {
-  background: linear-gradient(180deg, #0B0B0B 0%, #111 100%);
-}
-
-.gold-text {
-  background: linear-gradient(90deg, #D4AF37 0%, #F5D47A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
