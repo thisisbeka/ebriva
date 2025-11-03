@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Sparkles, Award, Users } from 'lucide-react';
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,22 +21,22 @@ export default function About() {
     };
   }, []);
 
-  const stats = [
-    { icon: Users, value: '10,000+', label: 'Mutlu Müşteri' },
-    { icon: Award, value: '15+', label: 'Yıl Deneyim' },
-    { icon: Sparkles, value: '100%', label: 'Memnuniyet' },
-  ];
-
   return (
     <section
-      className="relative py-24 md:py-32 px-4 overflow-hidden"
+      className="relative py-16 md:py-20 px-4 overflow-hidden"
       id="about"
       style={{
-        background: 'radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%)',
+        background: 'linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%)',
       }}
     >
-      <div className="floating-orb" style={{ width: '550px', height: '550px', top: '15%', left: '-12%', animationDelay: '3s' }} />
-      <div className="floating-orb" style={{ width: '480px', height: '480px', bottom: '15%', right: '-8%', animationDelay: '8s' }} />
+      <div className="absolute inset-0 opacity-5">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 70%)',
+          }}
+        />
+      </div>
 
       <div className="container mx-auto relative z-10">
         <div
@@ -46,63 +44,115 @@ export default function About() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="aurora-text text-5xl md:text-7xl font-black text-center mb-6 uppercase tracking-tight">
+          <h2
+            className="text-4xl md:text-5xl font-bold text-center mb-4 font-heading uppercase tracking-wide"
+            style={{
+              background: 'linear-gradient(90deg, #f6e27a, #d4af37, #b89535)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
             Hakkımızda
           </h2>
 
-          <p className="text-center text-gray-400 max-w-2xl mx-auto mb-16 text-lg">
-            Güzelliğinizi en üst seviyeye taşımak için buradayız
-          </p>
+          <div className="h-1 w-24 mx-auto mb-12 md:mb-16 rounded-full bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="premium-card rounded-3xl p-12 md:p-16 mb-12"
+        <div
+          className={`max-w-4xl mx-auto transition-all duration-1000 delay-300 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <div
+            className="relative rounded-3xl p-8 md:p-12 overflow-hidden group"
+            style={{
+              background: 'rgba(10, 10, 10, 0.6)',
+              backdropFilter: 'blur(14px)',
+              WebkitBackdropFilter: 'blur(14px)',
+              border: '1px solid rgba(212, 175, 55, 0.3)',
+              boxShadow: '0 6px 24px rgba(212, 175, 55, 0.18), inset 0 0 40px rgba(212, 175, 55, 0.06)',
+            }}
           >
+            <div
+              className="absolute inset-0 opacity-30"
+              style={{
+                background: 'radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15), transparent 70%)',
+              }}
+            />
+
+            <div
+              className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50"
+              style={{
+                animation: 'borderFlow 4s ease-in-out infinite',
+              }}
+            />
+
+            <div
+              className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50"
+              style={{
+                animation: 'borderFlow 4s ease-in-out infinite',
+                animationDelay: '2s',
+              }}
+            />
+
+            <div
+              className="absolute top-0 bottom-0 left-0 w-0.5 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent opacity-50"
+              style={{
+                animation: 'borderFlowVertical 4s ease-in-out infinite',
+                animationDelay: '1s',
+              }}
+            />
+
+            <div
+              className="absolute top-0 bottom-0 right-0 w-0.5 bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent opacity-50"
+              style={{
+                animation: 'borderFlowVertical 4s ease-in-out infinite',
+                animationDelay: '3s',
+              }}
+            />
+
             <div className="relative z-10">
-              <p className="text-xl md:text-2xl leading-relaxed text-center font-light text-gray-300 mb-8">
+              <p
+                className="text-base md:text-lg leading-relaxed text-center font-light"
+                style={{
+                  color: '#E0E0E0',
+                  lineHeight: '1.8',
+                  fontFamily: "'Poppins', sans-serif",
+                }}
+              >
                 EBRIVA Hair Design'da güzellik bir{' '}
-                <span className="text-[#D4AF37] font-semibold">sanat formu</span> olarak görülür.
+                <span className="text-[#D4AF37] font-medium">sanat formu</span> olarak görülür.
                 Salonumuz, yetenekli stilistlerimizin sizin için mükemmel görünümü yaratmaya
                 adandıkları bir{' '}
-                <span className="text-[#D4AF37] font-semibold">lüks ve profesyonellik</span> sığınağıdır.
+                <span className="text-[#D4AF37] font-medium">lüks ve profesyonellik</span> sığınağıdır.
                 En son teknikleri zamansiz zarafetle birleştirerek, her müşterimizin kendinden emin
                 ve ışıl ışıl hissederek ayrılmasını sağlarız.
               </p>
 
-              <div className="flex justify-center">
-                <div className="inline-block px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37]/10 to-[#F5D47A]/10 border border-[#D4AF37]/30">
-                  <p className="text-center text-2xl font-bold bg-gradient-to-r from-[#F6E27A] to-[#D4AF37] bg-clip-text text-transparent">
-                    Güzelliğiniz Bizim İşimiz
-                  </p>
-                </div>
+              <div className="mt-8 pt-6 border-t border-[#D4AF37]/20">
+                <p
+                  className="text-center text-lg md:text-xl font-semibold"
+                  style={{
+                    background: 'linear-gradient(90deg, #f6e27a, #d4af37, #b89535)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  Güzelliğiniz Bizim İşimiz
+                </p>
               </div>
             </div>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="premium-card rounded-2xl p-8 text-center group cursor-pointer"
-              >
-                <div className="flex justify-center mb-4">
-                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 group-hover:scale-110 transition-transform duration-500">
-                    <stat.icon className="text-[#D4AF37] w-10 h-10" strokeWidth={1.5} />
-                  </div>
-                </div>
-                <h3 className="text-4xl font-black text-[#D4AF37] mb-2 font-['Outfit']">{stat.value}</h3>
-                <p className="text-gray-400 font-light">{stat.label}</p>
-              </motion.div>
-            ))}
+            <div className="absolute inset-0 rounded-3xl pointer-events-none">
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"
+                style={{
+                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 175, 55, 0.1) 0%, transparent 50%)',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
