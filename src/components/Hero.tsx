@@ -187,7 +187,7 @@ export default function Hero() {
                 className={`w-32 h-32 md:w-56 md:h-56 ${
                   prefersReducedMotion ? '' : 'breathing-animation'
                 }`}
-                src="/logo1.png"
+                src="/logo1.svg"
                 style={{
                   filter: 'drop-shadow(0 0 30px rgba(212, 175, 55, 0.6))',
                 }}
